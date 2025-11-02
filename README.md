@@ -32,3 +32,39 @@
 1. 克隆项目：
    ```bash
    git clone https://github.com/yourusername/Yunhang-Forum.git
+
+## 关于提交
+
+### Git 分支模型：
+- master：生产分支，永远保持可发布的状态。
+- develop：开发分支，所有功能开发都在此分支进行。
+- feature/：每个新功能开发都在一个单独的 feature/ 分支上进行，命名格式：feature/功能名。
+- bugfix/：bug 修复分支，命名格式：bugfix/bug描述。
+- hotfix/：紧急修复分支，直接从 master 分支创建，修复完成后合并回 master 和 develop。
+
+### 提交流程：
+1. 创建分支：从 develop 分支创建新的功能分支
+```
+git checkout develop
+git checkout -b feature/your-feature-name
+```
+
+2. 提交代码：开发完成后，提交代码到对应分支。
+```
+git add .
+git commit -m "描述你的更改"
+git push origin feature/your-feature-name
+```
+
+3. 拉取请求：完成功能开发后，向 develop 分支发起拉取请求（PR）。
+
+4. 代码审查：团队成员进行代码审查，提出修改建议。
+
+5. 合并：审查通过后，将分支合并到 develop。
+
+### Commit 消息规范：
+- 功能开发：feat: 简要描述功能
+- 修复问题：fix: 简要描述修复
+- 优化代码：refactor: 简要描述优化
+- 文档更新：docs: 简要描述更新
+- 其他：chore: 简要描述
