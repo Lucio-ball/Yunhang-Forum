@@ -1,6 +1,6 @@
 # ☁️ Yunhang Forum (云航论坛)
 
-![Java](https://img.shields.io/badge/Language-Java_17+-orange?style=flat-square)
+![Java](https://img.shields.io/badge/Language-Java_25+-orange?style=flat-square)
 ![UI Framework](https://img.shields.io/badge/UI_Framework-JavaFX-blue?style=flat-square)
 ![Build](https://img.shields.io/badge/Build-Maven-green?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey?style=flat-square)
