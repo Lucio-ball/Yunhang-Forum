@@ -46,14 +46,6 @@
             <version>${gson.version}</version>
         </dependency>
 
-        <!-- Lombok to reduce boilerplate -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
         <!-- JUnit 5 for tests -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -75,11 +67,6 @@
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
-                    <!-- NOTE: Lombok is included as a provided dependency for IDE support, but we avoid
-                         placing it in annotationProcessorPaths because some Lombok releases are not
-                         compatible with the internal javac APIs of newer JDKs (like Java 25) and
-                         cause a compilation crash. Remove this comment and add annotationProcessorPaths
-                         later if you upgrade Lombok to a release that supports JDK 25. -->
                 </configuration>
             </plugin>
 

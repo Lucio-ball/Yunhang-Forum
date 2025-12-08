@@ -37,7 +37,7 @@ public abstract class User {
 
     public boolean publishPost(Post post) {
         myPosts.add(post);
-        System.out.println(this.nickname + " 发布了帖子: " + post.content);
+        System.out.println(this.nickname + " 发布了帖子: " + post.getContent());
         return true;
     }
 

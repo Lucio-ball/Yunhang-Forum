@@ -58,6 +58,14 @@ public class Post {
     this.category = category;
   }
 
+  public Post(String s) {
+    this();
+    this.title = "示例帖子";
+    this.content = s;
+    this.authorId = "example_author";
+    this.category = PostCategory.ACTIVITY;
+  }
+
   // ==================== Getter和Setter方法 ====================
 
   public String getPostId() { return postId; }
