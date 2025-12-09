@@ -1,6 +1,7 @@
 // filepath: /Users/xigma/IdeaProjects/Yunhang-Forum/src/main/java/com/yunhang/forum/model/entity/Comment.java
 package com.yunhang.forum.model.entity;
 
+import com.yunhang.forum.model.enums.EventType;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

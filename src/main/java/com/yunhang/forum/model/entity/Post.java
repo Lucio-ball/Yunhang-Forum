@@ -1,5 +1,6 @@
 package com.yunhang.forum.model.entity;
 
+import com.yunhang.forum.model.enums.EventType;
 import com.yunhang.forum.model.enums.PostCategory;
 import com.yunhang.forum.model.enums.PostStatus;
 

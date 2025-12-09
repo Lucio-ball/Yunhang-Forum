@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.yunhang.forum.controller.auth.LoginController"
+      spacing="12" alignment="CENTER"
+      prefWidth="400" prefHeight="300">
+    <children>
+        <Label text="Yunhang Forum 登录" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+        <TextField fx:id="studentField" promptText="学号"/>
+        <PasswordField fx:id="passwordField" promptText="密码"/>
+        <Button text="登录" onAction="#onLogin"/>
+    </children>
+    <padding>
+        <Insets topRightBottomLeft="16"/>
+    </padding>
+</VBox>

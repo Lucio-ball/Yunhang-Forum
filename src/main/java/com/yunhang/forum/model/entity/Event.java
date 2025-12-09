@@ -1,5 +1,6 @@
 package com.yunhang.forum.model.entity;
 
+import com.yunhang.forum.model.enums.EventType;
 import java.time.LocalDateTime;
 
 /** 互动事件：由 ObservableEntity 产生，用于驱动通知。 */

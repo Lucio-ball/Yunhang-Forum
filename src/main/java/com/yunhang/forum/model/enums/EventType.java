@@ -1,4 +1,4 @@
-package com.yunhang.forum.model.entity;
+package com.yunhang.forum.model.enums;
 
 /** 互动事件类型。 */
 public enum EventType {

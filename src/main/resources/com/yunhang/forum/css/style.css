@@ -1,0 +1,45 @@
+/* Global CSS for Yunhang Forum */
+.root {
+  -fx-primary-color: #005be4;
+  -fx-bg-color: #ffffff;
+}
+
+/* Buttons: flat, 4px radius, primary background, white text */
+.button {
+  -fx-background-color: -fx-primary-color;
+  -fx-text-fill: white;
+  -fx-background-radius: 4;
+  -fx-padding: 8 14;
+  -fx-border-color: transparent;
+  -fx-border-radius: 4;
+}
+.button:hover {
+  -fx-opacity: 0.92;
+}
+.button:pressed {
+  -fx-opacity: 0.85;
+}
+
+/* TextField: underline or rounded border; focus turns blue */
+.text-field {
+  -fx-background-color: -fx-bg-color;
+  -fx-background-insets: 0;
+  -fx-padding: 6 8;
+  -fx-border-color: #cccccc;
+  -fx-border-width: 0 0 1 0; /* underline-style */
+  -fx-border-radius: 0;
+}
+.text-field:focused {
+  -fx-border-color: -fx-primary-color;
+}
+
+/* Alternate rounded style (apply via style class) */
+.text-field.rounded {
+  -fx-border-width: 1;
+  -fx-border-radius: 4;
+  -fx-background-radius: 4;
+}
+.text-field.rounded:focused {
+  -fx-border-color: -fx-primary-color;
+}
+
