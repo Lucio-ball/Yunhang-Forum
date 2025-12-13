@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<HBox fx:id="rootHBox" alignment="CENTER_LEFT" spacing="15.0" style="-fx-border-color: #e0e0e0; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-background-color: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 2, 0, 0, 1);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.yunhang.forum.controller.PostItemController">
+  <padding>
+    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+  </padding>
+
+  <!-- 左侧：头像 -->
+  <ImageView fx:id="avatarImageView" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+    <clip>
+      <Circle radius="25.0" centerX="25.0" centerY="25.0" />
+    </clip>
+  </ImageView>
+
+  <!-- 中间：内容区域 -->
+  <VBox fx:id="contentVBox" spacing="8.0" HBox.hgrow="ALWAYS">
+    <!-- 标题 -->
+    <Label fx:id="titleLabel" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333333;" wrapText="true" />
+
+    <!-- 摘要 -->
+    <Label fx:id="summaryLabel" style="-fx-font-size: 14px; -fx-text-fill: #666666;" wrapText="true" />
+
+    <!-- 标签区域 -->
+    <HBox fx:id="tagsHBox" spacing="8.0">
+      <Label fx:id="categoryTagLabel" style="-fx-background-color: #f5f5f5; -fx-text-fill: #666; -fx-background-radius: 12; -fx-padding: 3 10 3 10; -fx-font-size: 11px;" />
+    </HBox>
+  </VBox>
+
+  <!-- 右侧：统计信息 -->
+  <VBox fx:id="statsVBox" alignment="CENTER_RIGHT" spacing="5.0">
+    <!-- 时间 -->
+    <Label fx:id="timeLabel" style="-fx-font-size: 12px; -fx-text-fill: #999999;" />
+
+    <!-- 点赞数 -->
+    <Label fx:id="likesLabel" style="-fx-font-size: 13px; -fx-text-fill: #666666; -fx-font-weight: bold;" />
+
+    <!-- 评论数 -->
+    <Label fx:id="commentsLabel" style="-fx-font-size: 13px; -fx-text-fill: #666666; -fx-font-weight: bold;" />
+
+    <!-- 浏览量 -->
+    <Label fx:id="viewsLabel" style="-fx-font-size: 13px; -fx-text-fill: #666666; -fx-font-weight: bold;" />
+  </VBox>
+</HBox>
