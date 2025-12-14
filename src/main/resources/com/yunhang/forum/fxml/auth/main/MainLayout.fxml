@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<BorderPane fx:id="mainRoot" prefHeight="600.0" prefWidth="900.0"
+            stylesheets="/com/yunhang/forum/css/style.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.yunhang.forum.controller.main.MainLayoutController">
+
+    <left>
+        <VBox prefWidth="200.0" style="-fx-background-color: #f5f5f5;" styleClass="sidebar" spacing="10.0"
+              BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="20.0" left="10.0" right="10.0"/>
+            </padding>
+            <Label text="云航论坛" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #005be4;">
+                <VBox.margin>
+                    <Insets bottom="20.0" left="10.0"/>
+                </VBox.margin>
+            </Label>
+            <Button text="🏠 首页 (Home)" maxWidth="Infinity" styleClass="nav-button" onAction="#onHomeClicked"/>
+            <Button text="🌏 广场 (Square)" maxWidth="Infinity" styleClass="nav-button" onAction="#onSquareClicked"/>
+            <Button text="📝 我的帖子 (My Posts)" maxWidth="Infinity" styleClass="nav-button"
+                    onAction="#onMyPostsClicked"/>
+            <Button text="⚙️ 设置 (Settings)" maxWidth="Infinity" styleClass="nav-button"
+                    onAction="#onSettingsClicked"/>
+        </VBox>
+    </left>
+
+    <top>
+        <HBox alignment="CENTER_LEFT" prefHeight="60.0"
+              style="-fx-background-color: #ffffff; -fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0;"
+              spacing="20.0" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets left="20.0" right="20.0"/>
+            </padding>
+
+            <Label minWidth="180.0" visible="false"/>
+
+            <TextField promptText="搜索感兴趣的内容..." prefWidth="400.0" styleClass="search-field"/>
+
+            <HBox HBox.hgrow="ALWAYS"/>
+
+            <HBox alignment="CENTER" spacing="10.0">
+                <Label fx:id="nicknameLabel" text="加载中..." style="-fx-font-weight: bold;"/>
+                <ImageView fx:id="avatarImageView" fitHeight="40.0" fitWidth="40.0">
+                    <clip>
+                        <Circle centerX="20" centerY="20" radius="20"/>
+                    </clip>
+                </ImageView>
+            </HBox>
+        </HBox>
+    </top>
+
+    <center>
+        <StackPane fx:id="contentArea" style="-fx-background-color: #ffffff;">
+            <Label text="请点击左侧导航栏" style="-fx-text-fill: #999;"/>
+        </StackPane>
+    </center>
+
+</BorderPane>
