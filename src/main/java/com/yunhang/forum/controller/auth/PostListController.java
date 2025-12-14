@@ -67,7 +67,7 @@ public class PostListController {
                   // 加载FXML文件
                   loader = new FXMLLoader(
                       getClass().getResource(
-                          "/com/yunhang/forum/fxml/post/PostItem.fxml"
+                          "/com/yunhang/forum/fxml/auth/PostItem.fxml"
                       )
                   );
                   loader.load();

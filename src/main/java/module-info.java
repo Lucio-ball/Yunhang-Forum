@@ -23,4 +23,5 @@ module com.yunhang.forum {
     opens com.yunhang.forum.controller.auth to javafx.fxml;
     opens com.yunhang.forum.model.entity to javafx.fxml;
     opens com.yunhang.forum.model.enums to javafx.fxml;
+    opens com.yunhang.forum.controller.post to javafx.fxml;
 }

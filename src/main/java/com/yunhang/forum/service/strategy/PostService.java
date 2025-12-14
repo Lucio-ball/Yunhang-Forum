@@ -1,6 +1,8 @@
 package com.yunhang.forum.service.strategy;
 
 import com.yunhang.forum.model.entity.Post;
+import com.yunhang.forum.model.entity.Comment;
+import com.yunhang.forum.model.entity.Student;
 import com.yunhang.forum.model.enums.PostCategory;
 import com.yunhang.forum.model.enums.PostStatus;
 
@@ -131,5 +133,12 @@ public class PostService {
     post.setCommentCount(comments);
     post.publish(); // 设置为已发布状态
     return post;
+  }
+
+  /** 添加评论到帖子（简化实现） */
+  public static boolean addComment(Post post, Comment comment) {
+    if (post == null || comment == null) return false;
+    post.addComment(new Student(comment.getAuthorId(), "匿名", "pass"), comment.getContent());
+    return true;
   }
 }

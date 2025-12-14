@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.TextFlow?>
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.yunhang.forum.controller.post.PostDetailController"
+            fitToWidth="true">
+    <content>
+        <VBox spacing="12" fillWidth="true">
+            <padding>
+                <Insets topRightBottomLeft="20" />
+            </padding>
+
+            <!-- Header: Title + Author Info -->
+            <Label fx:id="titleLabel" wrapText="true" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+            <HBox spacing="8">
+                <Label text="作者:" style="-fx-text-fill: #666;" />
+                <Label fx:id="authorLabel" />
+                <Label text="发布于" style="-fx-text-fill: #666;" />
+                <Label fx:id="timeLabel" />
+            </HBox>
+
+            <!-- Body: Long text content -->
+            <Label fx:id="contentLabel" wrapText="true" />
+            <!-- Alternatively, if using rich text: -->
+            <!-- <TextFlow fx:id="contentFlow" /> -->
+
+            <Separator />
+
+            <!-- Comments section -->
+            <Label text="评论区" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+            <VBox fx:id="commentsContainer" spacing="10">
+                <!-- Comments will be added here dynamically -->
+            </VBox>
+
+            <!-- Reply area -->
+            <HBox spacing="8">
+                <TextField fx:id="commentInput" promptText="写下你的看法..." />
+                <Button text="发送" onAction="#onSendComment" />
+            </HBox>
+        </VBox>
+    </content>
+</ScrollPane>
+
