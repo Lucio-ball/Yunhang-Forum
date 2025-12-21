@@ -8,6 +8,7 @@ import com.yunhang.forum.model.enums.PostStatus;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -16,6 +17,10 @@ import java.util.List;
 public class PostService {
 
   private static PostService instance;
+
+  // 【新增】维护当前的排序策略，默认为按时间排序
+  private PostSortStrategy sortStrategy =
+      posts -> posts.sort(Comparator.comparing(Post::getPublishTime).reversed());
 
   private PostService() {
     // 私有构造方法，单例模式
@@ -29,53 +34,55 @@ public class PostService {
   }
 
   /**
+   * 【新增】设置排序策略（供 PostListController 调用）
+   */
+  public void setSortStrategy(PostSortStrategy sortStrategy) {
+    this.sortStrategy = sortStrategy;
+  }
+
+  /**
+   * 【新增】搜索帖子（供 MainLayoutController 调用）
+   */
+  public List<Post> searchPosts(String keyword) {
+    List<Post> allPosts = getAllPosts();
+    PostSearchStrategy searchStrategy = new TitleKeywordStrategy();
+    return searchStrategy.search(allPosts, keyword);
+  }
+
+  /**
    * 获取所有帖子（模拟数据）
    */
   public List<Post> getAllPosts() {
     List<Post> posts = new ArrayList<>();
 
     // 模拟一些帖子数据
-    posts.add(createPost("Java多线程学习心得",
-        "最近在学习Java多线程编程，分享一些心得体会...",
-        "student_001",
-        PostCategory.LEARNING,
-        150, 45, 23,
-        LocalDateTime.now().minusHours(2)));
+    posts.add(createPost("Java多线程学习心得", "最近在学习Java多线程编程，分享一些心得体会...",
+        "student_001", PostCategory.LEARNING, 150, 45, 23, LocalDateTime.now().minusHours(2)));
 
-    posts.add(createPost("校园篮球比赛通知",
-        "本周五下午体育馆举行篮球比赛，欢迎大家参加！",
-        "sports_committee",
-        PostCategory.CAMPUS_LIFE,
-        320, 120, 56,
+    posts.add(createPost("校园篮球比赛通知", "本周五下午体育馆举行篮球比赛，欢迎大家参加！",
+        "sports_committee", PostCategory.CAMPUS_LIFE, 320, 120, 56,
         LocalDateTime.now().minusHours(5)));
 
-    posts.add(createPost("转让二手笔记本电脑",
-        "联想ThinkPad，9成新，配置：i7/16G/512G SSD",
-        "student_2024",
-        PostCategory.SECOND_HAND,
-        180, 65, 12,
-        LocalDateTime.now().minusDays(1)));
+    posts.add(
+        createPost("转让二手笔记本电脑", "联想ThinkPad，9成新，配置：i7/16G/512G SSD", "student_2024",
+            PostCategory.SECOND_HAND, 180, 65, 12, LocalDateTime.now().minusDays(1)));
 
-    posts.add(createPost("周末编程学习小组招募",
-        "寻找对Java开发感兴趣的同学一起学习交流",
-        "tech_group",
-        PostCategory.ACTIVITY,
-        95, 32, 18,
-        LocalDateTime.now().minusDays(2)));
+    posts.add(
+        createPost("周末编程学习小组招募", "寻找对Java开发感兴趣的同学一起学习交流", "tech_group",
+            PostCategory.ACTIVITY, 95, 32, 18, LocalDateTime.now().minusDays(2)));
 
-    posts.add(createPost("关于宿舍网络的问题",
-        "最近宿舍网络不太稳定，有相同情况的同学吗？",
-        "student_net",
-        PostCategory.QNA,
-        210, 78, 45,
-        LocalDateTime.now().minusHours(10)));
+    posts.add(
+        createPost("关于宿舍网络的问题", "最近宿舍网络不太稳定，有相同情况的同学吗？", "student_net",
+            PostCategory.QNA, 210, 78, 45, LocalDateTime.now().minusHours(10)));
 
-    posts.add(createPost("实习经验分享会",
-        "本周六下午有学长学姐分享实习经验，欢迎参加",
-        "career_center",
-        PostCategory.EMPLOYMENT,
-        420, 200, 89,
-        LocalDateTime.now().minusHours(1)));
+    posts.add(
+        createPost("实习经验分享会", "本周六下午有学长学姐分享实习经验，欢迎参加", "career_center",
+            PostCategory.EMPLOYMENT, 420, 200, 89, LocalDateTime.now().minusHours(1)));
+
+    // 【新增】返回前执行排序
+    if (sortStrategy != null) {
+      sortStrategy.sort(posts);
+    }
 
     return posts;
   }
@@ -123,9 +130,8 @@ public class PostService {
   /**
    * 创建帖子（辅助方法）
    */
-  private Post createPost(String title, String content, String authorId,
-      PostCategory category, int views, int likes, int comments,
-      LocalDateTime publishTime) {
+  private Post createPost(String title, String content, String authorId, PostCategory category,
+      int views, int likes, int comments, LocalDateTime publishTime) {
     Post post = new Post(title, content, authorId, category);
     post.setPublishTime(publishTime);
     post.setViewCount(views);
@@ -137,7 +143,8 @@ public class PostService {
 
   /** 添加评论到帖子（简化实现） */
   public static boolean addComment(Post post, Comment comment) {
-    if (post == null || comment == null) return false;
+    if (post == null || comment == null)
+      return false;
     post.addComment(new Student(comment.getAuthorId(), "匿名", "pass"), comment.getContent());
     return true;
   }
