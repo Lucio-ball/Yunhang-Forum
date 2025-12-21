@@ -2,8 +2,9 @@ package com.yunhang.forum.controller.auth;
 
 import com.yunhang.forum.model.entity.Post;
 import com.yunhang.forum.service.strategy.PostService;
-import com.yunhang.forum.service.strategy.HotSortStrategy; // 确保导入排序策略类
-import com.yunhang.forum.service.strategy.TimeSortStrategy;
+import com.yunhang.forum.service.strategy.impl.HotSortStrategy; // 确保导入排序策略类
+import com.yunhang.forum.service.strategy.impl.TimeSortStrategy;
+import com.yunhang.forum.util.LogUtil;
 import com.yunhang.forum.util.ResourcePaths;
 import com.yunhang.forum.util.TaskRunner;
 import javafx.fxml.FXML;
@@ -101,7 +102,7 @@ public class PostListController {
                   loader.load();
                   controller = loader.getController();
                 } catch (IOException e) {
-                  e.printStackTrace();
+                  LogUtil.error("加载 PostItem.fxml 失败", e);
                   setText("加载失败");
                   setGraphic(null);
                   return;
@@ -136,7 +137,7 @@ public class PostListController {
           postListView.getItems().setAll(posts);
         });
       } catch (Exception e) {
-        e.printStackTrace();
+        LogUtil.error("加载帖子列表失败", e);
       }
     });
   }

@@ -8,6 +8,9 @@ public final class ResourcePaths {
 
   public static final String FXML_PREFIX = "/com/yunhang/forum/fxml/";
 
+  public static final String CSS_PREFIX = "/com/yunhang/forum/css/";
+  public static final String CSS_STYLE = CSS_PREFIX + "style.css";
+
   // -------- Auth --------
   public static final String FXML_AUTH_LOGIN = FXML_PREFIX + "auth/Login.fxml";
   public static final String FXML_AUTH_REGISTER = FXML_PREFIX + "auth/Register.fxml";

@@ -22,8 +22,7 @@ public final class ViewManager {
     // 默认的 FXML 资源路径前缀
     private static final String FXML_PATH_PREFIX = ResourcePaths.FXML_PREFIX;
     // 默认的 CSS 资源路径前缀
-    private static final String CSS_PATH_PREFIX = "/com/yunhang/forum/css/";
-    private static final String STYLE_CSS = "style.css"; // 假定所有场景都使用这个CSS
+    private static final String CSS_STYLE = ResourcePaths.CSS_STYLE; // 假定所有场景都使用这个CSS
 
     private ViewManager() {} // 阻止实例化
 
@@ -69,9 +68,9 @@ public final class ViewManager {
 
     // 辅助方法：统一 CSS 查找
     private static String getCssUrl() {
-        URL cssResource = ViewManager.class.getResource(CSS_PATH_PREFIX + STYLE_CSS);
+        URL cssResource = ViewManager.class.getResource(CSS_STYLE);
         if (cssResource == null) {
-            System.err.println("警告：CSS 文件未找到! 尝试路径: " + (CSS_PATH_PREFIX + STYLE_CSS));
+            LogUtil.warn("警告：CSS 文件未找到! 尝试路径: " + CSS_STYLE);
             return null; // 返回 null，允许程序继续运行但没有样式
         }
         return cssResource.toExternalForm();

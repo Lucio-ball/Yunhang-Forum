@@ -54,9 +54,14 @@ public class DateUtil {
         LocalDateTime now = LocalDateTime.now();
         Duration duration = Duration.between(time, now);
 
+        // 未来时间：直接按日期展示，避免出现负数 “-5 分钟前”
+        if (duration.isNegative()) {
+            return time.toLocalDate().format(DATE_ONLY_FORMATTER);
+        }
+
         long minutes = duration.toMinutes();
         long hours = duration.toHours();
-        long days = duration.toDays();
+        // long days = duration.toDays();
 
         if (minutes < 1) {
             return "刚刚";
@@ -64,13 +69,18 @@ public class DateUtil {
         if (minutes < 60) {
             return minutes + " 分钟前";
         }
-        if (hours < 24) {
+
+        // 昨天：兼顾跨日但很近的场景。
+        // 规则：若确实是昨天，且已过去 >= 6 小时，则显示“昨天 HH:mm”；否则仍显示“X 小时前”。
+        if (time.toLocalDate().equals(now.toLocalDate().minusDays(1))) {
+            if (hours >= 6) {
+                return "昨天 " + time.format(TIME_FORMATTER);
+            }
             return hours + " 小时前";
         }
 
-        // 昨天：显示“昨天 HH:mm”
-        if (time.toLocalDate().equals(now.toLocalDate().minusDays(1))) {
-            return "昨天 " + time.format(TIME_FORMATTER);
+        if (hours < 24) {
+            return hours + " 小时前";
         }
 
         // 其他：显示日期

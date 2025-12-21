@@ -5,6 +5,7 @@ import com.yunhang.forum.model.entity.User;
 import com.yunhang.forum.model.enums.PostCategory;
 import com.yunhang.forum.model.session.UserSession;
 import com.yunhang.forum.service.strategy.PostService;
+import com.yunhang.forum.util.LogUtil;
 import com.yunhang.forum.util.TaskRunner;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -127,7 +128,7 @@ public class PostEditorController {
         });
 
       } catch (Exception e) {
-        e.printStackTrace();
+        LogUtil.error("Post publish failed", e);
         TaskRunner.runOnUI(() -> {
           showAlert("错误", "发布失败: " + e.getMessage(), Alert.AlertType.ERROR);
           publishButton.setDisable(false);

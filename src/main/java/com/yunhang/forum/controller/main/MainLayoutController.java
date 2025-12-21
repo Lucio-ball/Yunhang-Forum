@@ -5,6 +5,7 @@ import com.yunhang.forum.model.entity.Post;
 import com.yunhang.forum.model.entity.User;
 import com.yunhang.forum.model.session.UserSession;
 import com.yunhang.forum.service.strategy.PostService;
+import com.yunhang.forum.util.LogUtil;
 import com.yunhang.forum.util.ResourcePaths;
 import com.yunhang.forum.util.TaskRunner;
 import com.yunhang.forum.util.ViewManager;
@@ -59,13 +60,13 @@ public class MainLayoutController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    System.out.println("MainLayoutController 初始化中...");
+    LogUtil.info("MainLayoutController 初始化中...");
 
     // 1. 【最关键一步】将整个 BorderPane 传给 ViewManager (符合 ViewManager 接口)
     if (mainRoot != null) {
       ViewManager.setMainLayout(mainRoot);
     } else {
-      System.err.println("错误: FXML根节点的fx:id='mainRoot'未加载。");
+      LogUtil.error("错误: FXML根节点的fx:id='mainRoot'未加载。", null);
     }
 
     // 2. 初始化用户信息 (Task 要求)
@@ -81,7 +82,7 @@ public class MainLayoutController implements Initializable {
     if (publishButton != null) {
       publishButton.setOnAction(event -> onPublishClicked());
     } else {
-      System.err.println("警告: 发帖按钮未找到，请在FXML中添加fx:id='publishButton'");
+      LogUtil.warn("警告: 发帖按钮未找到，请在FXML中添加fx:id='publishButton'");
     }
 
     // 4. 初始跳转：让界面打开时自动显示首页内容 (可选，但推荐)
@@ -94,7 +95,7 @@ public class MainLayoutController implements Initializable {
    */
   @FXML
   public void onPublishClicked() {
-    System.out.println("发帖按钮被点击");
+    LogUtil.info("发帖按钮被点击");
 
     // 检查用户是否登录
     User currentUser = UserSession.getInstance().getCurrentUser();
@@ -141,7 +142,7 @@ public class MainLayoutController implements Initializable {
       dialogStage.showAndWait();
 
     } catch (IOException e) {
-      e.printStackTrace();
+      LogUtil.error("无法加载发帖界面", e);
       Alert alert = new Alert(Alert.AlertType.ERROR);
       alert.setTitle("错误");
       alert.setHeaderText(null);
@@ -174,7 +175,7 @@ public class MainLayoutController implements Initializable {
         ViewManager.loadContent(ResourcePaths.FXML_AUTH_POST_LIST);
 
         // 打印日志以便联调
-        System.out.println("搜索触发，关键词: " + keyword + "，找到结果数: " + results.size());
+        LogUtil.info("搜索触发，关键词: " + keyword + "，找到结果数: " + results.size());
       });
     });
   }
@@ -182,28 +183,28 @@ public class MainLayoutController implements Initializable {
   // --- 导航事件实现 (Task 要求) ---
   @FXML
   public void onHomeClicked() {
-    System.out.println("导航: 点击首页 (Home)");
+    LogUtil.info("导航: 点击首页 (Home)");
     // 使用 ViewManager 的相对路径（避免重复拼接 /com/yunhang/forum/fxml/ 前缀）
     ViewManager.loadContent(ResourcePaths.FXML_AUTH_POST_LIST);
   }
 
   @FXML
   public void onSquareClicked() {
-    System.out.println("导航: 点击广场 (Square)");
+    LogUtil.info("导航: 点击广场 (Square)");
     // 广场内容，暂时与首页相同
     ViewManager.loadContent(ResourcePaths.FXML_AUTH_POST_LIST);
   }
 
   @FXML
   public void onMyPostsClicked() {
-    System.out.println("导航: 点击我的帖子 (My Posts)");
+    LogUtil.info("导航: 点击我的帖子 (My Posts)");
     // Phase 2：复用用户中心页，展示"我的帖子"列表
     ViewManager.loadContent(ResourcePaths.FXML_AUTH_USER_PROFILE);
   }
 
   @FXML
   public void onSettingsClicked() {
-    System.out.println("导航: 点击设置 (Settings)");
+    LogUtil.info("导航: 点击设置 (Settings)");
     ViewManager.loadContent(ResourcePaths.FXML_USER_SETTINGS);
   }
 }

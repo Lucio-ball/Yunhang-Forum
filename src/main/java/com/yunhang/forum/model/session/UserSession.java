@@ -2,10 +2,11 @@ package com.yunhang.forum.model.session;
 
 
 import com.yunhang.forum.model.entity.*;
+import com.yunhang.forum.util.LogUtil;
 
 public class UserSession {
     private static volatile UserSession instance;
-    private User currentUser;
+    private volatile User currentUser;
     private UserSession() {}
 
     public static UserSession getInstance() {
@@ -21,12 +22,12 @@ public class UserSession {
 
     public void startSession(User user) {
         this.currentUser = user;
-        System.out.println(user.getNickname() + " 已登录。");
+        LogUtil.info(user.getNickname() + " 已登录。");
     }
 
     public void clearSession() {
         if (this.currentUser != null) {
-            System.out.println(this.currentUser.getNickname() + " 已登出。");
+            LogUtil.info(this.currentUser.getNickname() + " 已登出。");
         }
         this.currentUser = null;
     }
@@ -40,7 +41,7 @@ public class UserSession {
     }
     public void endSession() {
         this.currentUser = null;
-        System.out.println("已退出登录");
+        LogUtil.info("已退出登录");
     }
 
     // 与类图命名对齐的别名

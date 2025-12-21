@@ -1,6 +1,7 @@
-package com.yunhang.forum.service.strategy;
+package com.yunhang.forum.service.strategy.impl;
 
 import com.yunhang.forum.model.entity.Post;
+import com.yunhang.forum.service.strategy.PostSortStrategy;
 
 import java.util.Comparator;
 import java.util.List;

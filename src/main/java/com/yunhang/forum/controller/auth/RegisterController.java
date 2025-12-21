@@ -70,7 +70,11 @@ public class RegisterController {
                 setMessage("验证码已发送到 " + email + "，请查收", true);
                 startCountdown();
             } else {
-                setMessage("验证码发送失败，请稍后再试", false);
+                if (!UserService.isSmtpConfigured()) {
+                    setMessage(UserService.smtpConfigHelp(), false);
+                } else {
+                    setMessage("验证码发送失败，请稍后再试", false);
+                }
                 sendCodeButton.setDisable(false);
                 sendCodeButton.setText("发送验证码");
             }

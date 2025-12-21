@@ -1,5 +1,6 @@
 package com.yunhang.forum.service.strategy;
 
+import com.yunhang.forum.dao.DataLoader;
 import com.yunhang.forum.model.entity.Post;
 import com.yunhang.forum.model.entity.Comment;
 import com.yunhang.forum.model.entity.Student;
@@ -7,6 +8,10 @@ import com.yunhang.forum.model.entity.User;
 import com.yunhang.forum.model.session.UserSession;
 import com.yunhang.forum.model.enums.PostCategory;
 import com.yunhang.forum.model.enums.PostStatus;
+import com.yunhang.forum.service.strategy.impl.TimeSortStrategy;
+import com.yunhang.forum.service.strategy.impl.TitleKeywordStrategy;
+import com.yunhang.forum.util.AppContext;
+import com.yunhang.forum.util.LogUtil;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -18,6 +23,8 @@ import java.util.List;
 public class PostService {
 
   private static PostService instance;
+
+  private volatile DataLoader dataLoader;
 
   /**
    * 简化：在内存中维护帖子列表，保证点赞/评论能按 postId 找到并更新。
@@ -117,6 +124,8 @@ public class PostService {
     synchronized (cachedPosts) {
       cachedPosts.add(0, post);
     }
+
+    persistBestEffort();
   }
 
   /**
@@ -136,6 +145,26 @@ public class PostService {
   private synchronized void ensureInitialized() {
     if (initialized) {
       return;
+    }
+
+    // Prefer loading from DAO
+    DataLoader loader = this.dataLoader;
+    if (loader == null) {
+      loader = AppContext.getDataLoader();
+      this.dataLoader = loader;
+    }
+
+    if (loader != null) {
+      try {
+        List<Post> loaded = loader.loadPosts();
+        if (loaded != null && !loaded.isEmpty()) {
+          cachedPosts.addAll(loaded);
+          initialized = true;
+          return;
+        }
+      } catch (Exception e) {
+        LogUtil.warn("loadPosts failed, falling back to seeded posts: " + e.getMessage());
+      }
     }
 
     // 模拟一些帖子数据（仅初始化一次，保证点赞/评论不会因重新加载而丢失）
@@ -163,6 +192,23 @@ public class PostService {
         PostCategory.EMPLOYMENT, 420, 200, 89, LocalDateTime.now().minusHours(1)));
 
     initialized = true;
+  }
+
+  private void persistBestEffort() {
+    DataLoader loader = this.dataLoader;
+    if (loader == null) {
+      loader = AppContext.getDataLoader();
+      this.dataLoader = loader;
+    }
+    if (loader == null) {
+      return;
+    }
+
+    try {
+      loader.savePosts(new ArrayList<>(cachedPosts));
+    } catch (Exception e) {
+      LogUtil.warn("savePosts failed (ignored): " + e.getMessage());
+    }
   }
 
   private Post findPostById(String postId) {

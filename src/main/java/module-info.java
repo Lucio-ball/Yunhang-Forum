@@ -13,7 +13,6 @@ module com.yunhang.forum {
 
     // Export our API packages
     exports com.yunhang.forum;
-    exports com.yunhang.forum.controller;
     exports com.yunhang.forum.model.entity;
     exports com.yunhang.forum.model.enums;
     exports com.yunhang.forum.model.session;
@@ -21,9 +20,8 @@ module com.yunhang.forum {
     exports com.yunhang.forum.util;
 
     // Open controller and fxml-accessed packages for reflection (FXML loader)
-    opens com.yunhang.forum.controller to javafx.fxml;
     opens com.yunhang.forum.controller.auth to javafx.fxml;
-    opens com.yunhang.forum.model.entity to javafx.fxml;
+    opens com.yunhang.forum.model.entity to javafx.fxml, com.google.gson;
     opens com.yunhang.forum.model.enums to javafx.fxml;
     opens com.yunhang.forum.controller.post to javafx.fxml;
     opens com.yunhang.forum.controller.main to javafx.fxml;

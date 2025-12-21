@@ -12,16 +12,16 @@ import java.util.List;
 import java.util.UUID;
 
 public abstract class User {
-    protected final String userID;
-    protected final String studentID;
-    protected String nickname;
-    protected String avatarPath;
-    protected final LocalDateTime registrationTime;
+    private final String userID;
+    private final String studentID;
+    private String nickname;
+    private String avatarPath;
+    private final LocalDateTime registrationTime;
     private String hashedPasswordPBKDF2;
     private String salt;
     private final int ITERATIONS = 50; // 迭代次数
     private static final int KEY_LENGTH = 256; // 派生密钥长度
-    protected List<Post> myPosts = new ArrayList<>();
+    private final List<Post> myPosts = new ArrayList<>();
     // 新增：用户通知列表
     private final List<com.yunhang.forum.model.entity.Notification> notifications = new ArrayList<>();
 
@@ -39,17 +39,17 @@ public abstract class User {
 
     public boolean publishPost(Post post) {
         myPosts.add(post);
-        System.out.println(this.nickname + " 发布了帖子: " + post.getContent());
+        com.yunhang.forum.util.LogUtil.info(this.nickname + " 发布了帖子: " + post.getContent());
         return true;
     }
 
     public boolean comment(String postId, String content) {
-        System.out.println(this.nickname + " 评论了帖子 " + postId + ": " + content);
+        com.yunhang.forum.util.LogUtil.info(this.nickname + " 评论了帖子 " + postId + ": " + content);
         return true;
     }
 
     public boolean upvote(String contentId) {
-        System.out.println(this.nickname + " 点赞了 " + contentId);
+        com.yunhang.forum.util.LogUtil.info(this.nickname + " 点赞了 " + contentId);
         return true;
     }
 
@@ -65,10 +65,10 @@ public abstract class User {
     public boolean updatePassword(String oldPass, String newPass) {
         if (verifyPassword(oldPass)) {
             securelyStorePassword(newPass);
-            System.out.println("密码更新成功。");
+            com.yunhang.forum.util.LogUtil.info("密码更新成功。");
             return true;
         } else {
-            System.out.println("旧密码错误");
+            com.yunhang.forum.util.LogUtil.warn("旧密码错误");
             return false;
         }
     }
@@ -96,7 +96,7 @@ public abstract class User {
             byte[] hash = skf.generateSecret(spec).getEncoded();
             return Base64.getEncoder().encodeToString(hash);
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-            e.printStackTrace();
+            com.yunhang.forum.util.LogUtil.error("Password hashing failed", e);
             return null;
         }
     }
@@ -106,6 +106,10 @@ public abstract class User {
     // 新增：与类图一致的命名别名
     public String getUserId() { return userID; }
     public String getUserID() { return userID; }
+
+    public LocalDateTime getRegistrationTime() { return registrationTime; }
+
+    public String getAvatarPath() { return avatarPath; }
     // 新增：Profile 更新接口（类图要求）
     public void updateProfile(String nick, String avatar) {
         this.nickname = nick;

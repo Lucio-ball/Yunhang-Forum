@@ -1,9 +1,11 @@
 package com.yunhang.forum;
 
 import com.yunhang.forum.controller.post.PostDetailController;
+import com.yunhang.forum.dao.DataLoader;
+import com.yunhang.forum.dao.impl.FileDataLoader;
 import com.yunhang.forum.model.entity.Post;
-import com.yunhang.forum.util.UserService;
 import com.yunhang.forum.service.strategy.PostService;
+import com.yunhang.forum.util.AppContext;
 import com.yunhang.forum.util.ResourcePaths;
 import com.yunhang.forum.util.ViewManager;
 import javafx.application.Application;
@@ -19,6 +21,10 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        // Composition root: wire DAO implementation once
+        DataLoader dataLoader = new FileDataLoader();
+        AppContext.setDataLoader(dataLoader);
+
         // 1. 初始化 ViewManager 并设置主舞台
         ViewManager.setPrimaryStage(stage);
 
@@ -33,7 +39,7 @@ public class MainApp extends Application {
             controller.initData(sample);
 
             Scene scene = new Scene(root, 800, 600);
-            scene.getStylesheets().add(getClass().getResource("/com/yunhang/forum/css/style.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource(ResourcePaths.CSS_STYLE).toExternalForm());
             stage.setTitle("Yunhang Forum - 帖子详情测试 [DEBUG]");
             stage.setScene(scene);
             stage.show();
