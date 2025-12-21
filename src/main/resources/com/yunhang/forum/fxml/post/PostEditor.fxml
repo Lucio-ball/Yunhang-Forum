@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.yunhang.forum.controller.post.PostEditorController">
+  <padding>
+    <Insets bottom="15" left="15" right="15" top="15" />
+  </padding>
+
+  <!-- 标题 -->
+  <Label text="发布新帖子" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+  <!-- 标题输入 -->
+  <VBox spacing="5">
+    <Label text="标题" style="-fx-font-weight: bold;" />
+    <TextField fx:id="titleField" prefHeight="35" />
+  </VBox>
+
+  <!-- 分类选择 -->
+  <VBox spacing="5">
+    <Label text="分类" style="-fx-font-weight: bold;" />
+    <ComboBox fx:id="categoryComboBox" prefHeight="35" />
+  </VBox>
+
+  <!-- 内容输入 -->
+  <VBox spacing="5" VBox.vgrow="ALWAYS">
+    <Label text="内容" style="-fx-font-weight: bold;" />
+    <TextArea fx:id="contentArea" prefHeight="200" wrapText="true" />
+  </VBox>
+
+  <!-- 匿名选项 -->
+  <CheckBox fx:id="anonymousCheckBox" text="匿名发布" />
+
+  <!-- 按钮区域 -->
+  <HBox spacing="10" alignment="CENTER_RIGHT">
+    <Button fx:id="cancelButton" text="取消" onAction="#onCancel"
+      style="-fx-background-color: #9e9e9e; -fx-text-fill: white; -fx-min-width: 80;" />
+    <Button fx:id="publishButton" text="发布" onAction="#onPublish"
+      style="-fx-background-color: #005be4; -fx-text-fill: white; -fx-font-weight: bold; -fx-min-width: 80;" />
+  </HBox>
+</VBox>
