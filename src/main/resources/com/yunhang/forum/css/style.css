@@ -251,23 +251,25 @@
 
 .nav-button {
     -fx-background-color: transparent;
-    -fx-text-fill: #bdc3c7;
+    -fx-text-fill: #9ca3af;
     -fx-alignment: CENTER_LEFT;
+    -fx-padding: 12 18;
+    -fx-background-radius: 12;
     -fx-font-size: 14px;
-    -fx-padding: 10 15 10 15;
     -fx-cursor: hand;
+    -fx-transition: 0.3s;
 }
 
 .nav-button:hover {
-    -fx-background-color: #34495e;
-    -fx-text-fill: white;
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-text-fill: #ffffff;
 }
 
 .nav-button-active {
-    -fx-background-color: #3498DB;
-    -fx-text-fill: white;
-    -fx-alignment: CENTER_LEFT;
-    -fx-padding: 10 15 10 15;
+
+    -fx-background-color: rgba(78, 138, 255, 0.15);
+    -fx-text-fill: #4e8aff;
+    -fx-font-weight: bold;
 }
 
 .button-danger {
@@ -303,4 +305,81 @@
 
 .modern-list-view .scroll-bar:vertical {
     -fx-background-color: transparent;
+}
+
+/* 侧边栏普通按钮 */
+.side-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #94a3b8;
+    -fx-alignment: CENTER_LEFT;
+    -fx-font-size: 14px;
+    -fx-padding: 12 15;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+}
+
+.side-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-text-fill: white;
+}
+
+/* 侧边栏激活按钮 */
+.side-button-active {
+    -fx-background-color: #4e8aff;
+    -fx-text-fill: white;
+    -fx-alignment: CENTER_LEFT;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 12 15;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(78, 138, 255, 0.3), 10, 0, 0, 0);
+}
+
+/* 退出登录按钮 */
+.logout-button-modern {
+    -fx-background-color: rgba(255, 71, 87, 0.1);
+    -fx-text-fill: #ff4757;
+    -fx-font-weight: bold;
+    -fx-padding: 12 15;
+    -fx-background-radius: 10;
+    -fx-border-color: rgba(255, 71, 87, 0.2);
+    -fx-border-radius: 10;
+    -fx-cursor: hand;
+}
+
+.logout-button-modern:hover {
+    -fx-background-color: #ff4757;
+    -fx-text-fill: white;
+}
+
+/* 列表项样式 */
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #e2e8f0;
+    -fx-padding: 15;
+    -fx-background-radius: 10;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+}
+.nav-button-light {
+    -fx-background-color: transparent;
+    -fx-text-fill: #475569;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 12 18;
+    -fx-background-radius: 10;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+.nav-button-light:hover {
+    -fx-background-color: #f1f5f9;
+    -fx-text-fill: #6366f1;
+}
+
+.nav-button-light:focused {
+    -fx-background-color: #eef2ff;
+    -fx-text-fill: #6366f1;
+    -fx-font-weight: bold;
 }

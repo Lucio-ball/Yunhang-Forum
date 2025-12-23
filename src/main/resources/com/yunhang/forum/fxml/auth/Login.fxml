@@ -2,38 +2,54 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.effect.DropShadow?>
 
 <StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.yunhang.forum.controller.auth.LoginController"
-           style="-fx-background-color: -fx-bg-light;">
+           style="-fx-background-color: #f1f5f9;"> <VBox spacing="20" alignment="CENTER" maxWidth="420"
+                                                         style="-fx-background-color: white; -fx-background-radius: 20; -fx-padding: 45;">
 
-    <VBox spacing="15" alignment="CENTER"
-          maxWidth="420"
-          styleClass="auth-container">
+    <effect>
+        <DropShadow color="#00000010" radius="30" offsetY="10" />
+    </effect>
 
-        <children>
-            <Label text="Yunhang-Forum" styleClass="label-title"
-                   alignment="CENTER" />
+    <children>
+        <Label text="Yunhang-Forum"
+               style="-fx-font-size: 26px; -fx-font-weight: 900; -fx-text-fill: #1e293b; -fx-letter-spacing: 1px;"
+               alignment="CENTER" />
 
-            <Label fx:id="messageLabel" styleClass="label-message"/>
+        <Label fx:id="messageLabel" style="-fx-text-fill: #ef4444; -fx-font-size: 12px;"/>
 
-            <TextField fx:id="studentIdField" promptText="学号" prefHeight="45"/>
-            <PasswordField fx:id="passwordField" promptText="密码" prefHeight="45"/>
+        <TextField fx:id="studentIdField" promptText="学号" prefHeight="45"
+                   style="-fx-background-color: #f8fafc; -fx-border-color: #e2e8f0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 0 15;"/>
 
-            <Button text="立即登录" onAction="#handleLoginButtonAction"
-                    styleClass="button" prefWidth="320"/>
+        <PasswordField fx:id="passwordField" promptText="密码" prefHeight="45"
+                       style="-fx-background-color: #f8fafc; -fx-border-color: #e2e8f0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 0 15;"/>
 
-            <HBox alignment="CENTER" spacing="10">
-                <Label text="还没有账号?" style="-fx-font-size: 13px; -fx-text-fill: -fx-text-color;"/>
-                <Button text="新用户注册" onAction="#handleRegisterLinkAction"
-                        styleClass="link-button" />
-            </HBox>
-        </children>
+        <Button text="立即登录" onAction="#handleLoginButtonAction"
+                prefWidth="320" prefHeight="45"
+                style="-fx-background-color: linear-gradient(to right, #6366f1, #a855f7);
+                           -fx-text-fill: white;
+                           -fx-background-radius: 10;
+                           -fx-font-weight: bold;
+                           -fx-font-size: 14px;
+                           -fx-cursor: hand;">
+            <effect>
+                <DropShadow color="#6366f144" radius="12" offsetY="4" />
+            </effect>
+        </Button>
 
-        <padding>
-            <Insets topRightBottomLeft="40"/>
-        </padding>
+        <HBox alignment="CENTER" spacing="10">
+            <Label text="还没有账号?" style="-fx-font-size: 13px; -fx-text-fill: #64748b;"/>
+            <Button text="新用户注册" onAction="#handleRegisterLinkAction"
+                    style="-fx-background-color: transparent; -fx-text-fill: #6366f1; -fx-font-weight: bold; -fx-cursor: hand; -fx-padding: 0;" />
+        </HBox>
+    </children>
 
-    </VBox>
+    <padding>
+        <Insets top="40" right="40" bottom="40" left="40"/>
+    </padding>
+
+</VBox>
 
 </StackPane>
