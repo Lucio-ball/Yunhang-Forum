@@ -10,8 +10,10 @@ import com.yunhang.forum.util.TaskRunner;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 import java.util.Arrays;
+
 
 /**
  * 发帖编辑器控制器
@@ -44,7 +46,40 @@ public class PostEditorController {
    */
   @FXML
   public void initialize() {
-    // 初始化分类下拉框
+    // 1. 设置分类下拉框的转换器，将枚举值映射为中文显示
+    categoryComboBox.setConverter(new StringConverter<PostCategory>() {
+      @Override
+      public String toString(PostCategory category) {
+        if (category == null)
+          return "";
+        // 根据枚举值返回对应的中文
+        switch (category) {
+          case LEARNING:
+            return "学习交流";
+          case CAMPUS_LIFE:
+            return "校园生活";
+          case SECOND_HAND:
+            return "二手交易";
+          case ACTIVITY:
+            return "活动召集";
+          case QNA:
+            return "问答求助";
+          case EMPLOYMENT:
+            return "就业实习";
+          case ANNOUNCEMENT:
+            return "官方公告";
+          default:
+            return category.toString();
+        }
+      }
+
+      @Override
+      public PostCategory fromString(String string) {
+        return null; // 下拉框不需要从字符串还原对象
+      }
+    });
+
+    // 2. 初始化分类下拉框数据
     categoryComboBox.getItems().addAll(Arrays.asList(PostCategory.values()));
     categoryComboBox.setValue(PostCategory.CAMPUS_LIFE); // 默认值
 
@@ -91,12 +126,8 @@ public class PostEditorController {
     String authorId = currentUser.getStudentID();
 
     // 构建帖子对象
-    Post post = new Post(
-        titleField.getText().trim(),
-        contentArea.getText().trim(),
-        authorId,
-        categoryComboBox.getValue()
-    );
+    Post post = new Post(titleField.getText().trim(), contentArea.getText().trim(), authorId,
+        categoryComboBox.getValue());
 
     // 设置匿名状态
     post.setAnonymous(anonymousCheckBox.isSelected());
