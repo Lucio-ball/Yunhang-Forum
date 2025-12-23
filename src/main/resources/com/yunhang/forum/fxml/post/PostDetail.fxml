@@ -3,49 +3,56 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.TextFlow?>
+<?import javafx.scene.effect.DropShadow?>
+
 <ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.yunhang.forum.controller.post.PostDetailController"
-            fitToWidth="true">
+            fitToWidth="true"
+            style="-fx-background-color: #f8fafc; -fx-background-insets: 0;">
     <content>
-        <VBox spacing="12" fillWidth="true">
+        <VBox spacing="15" fillWidth="true" style="-fx-background-color: white;">
             <padding>
-                <Insets topRightBottomLeft="20" />
+                <Insets topRightBottomLeft="30" />
             </padding>
 
-            <!-- Header: Title + Author Info -->
-            <Label fx:id="titleLabel" wrapText="true" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
-            <HBox spacing="8">
-                <Label text="作者:" style="-fx-text-fill: #666;" />
-                <Label fx:id="authorLabel" />
-                <Label text="发布于" style="-fx-text-fill: #666;" />
-                <Label fx:id="timeLabel" />
+            <Label fx:id="titleLabel" wrapText="true"
+                   style="-fx-font-size: 24px; -fx-font-weight: 900; -fx-text-fill: #1e293b; -fx-line-spacing: 5;" />
+
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label text="作者:" style="-fx-text-fill: #94a3b8; -fx-font-size: 13px;" />
+                <Label fx:id="authorLabel" style="-fx-text-fill: #6366f1; -fx-font-weight: bold; -fx-font-size: 13px;" />
+                <Label text="发布于" style="-fx-text-fill: #94a3b8; -fx-font-size: 13px;" />
+                <Label fx:id="timeLabel" style="-fx-text-fill: #64748b; -fx-font-size: 13px;" />
             </HBox>
 
-            <!-- Body: Long text content -->
-            <Label fx:id="contentLabel" wrapText="true" />
-            <!-- Alternatively, if using rich text: -->
-            <!-- <TextFlow fx:id="contentFlow" /> -->
+            <Label fx:id="contentLabel" wrapText="true"
+                   style="-fx-font-size: 15px; -fx-text-fill: #334155; -fx-line-spacing: 6; -fx-padding: 10 0;" />
 
-            <!-- Like -->
-            <HBox spacing="8">
-                <Label text="点赞:" style="-fx-text-fill: #666;" />
-                <Label fx:id="likesLabel" text="♥ 0" style="-fx-font-size: 12px; -fx-text-fill: #888888;" />
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label text="点赞:" style="-fx-text-fill: #94a3b8; -fx-font-size: 13px;" />
+                <Label fx:id="likesLabel" text="♥ 0"
+                       style="-fx-font-size: 14px; -fx-text-fill: #f43f5e; -fx-font-weight: bold;" />
             </HBox>
 
-            <Separator />
+            <Separator style="-fx-opacity: 0.4;" />
 
-            <!-- Comments section -->
-            <Label text="评论区" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
-            <VBox fx:id="commentsContainer" spacing="10">
-                <!-- Comments will be added here dynamically -->
+            <Label text="评论区" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #1e293b;" />
+
+            <VBox fx:id="commentsContainer" spacing="12">
             </VBox>
 
-            <!-- Reply area -->
-            <HBox spacing="8">
-                <TextField fx:id="commentInput" promptText="写下你的看法..." />
-                <Button text="发送" onAction="#onSendComment" />
+            <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 10 0;">
+                <TextField fx:id="commentInput" promptText="写下你的看法..." HBox.hgrow="ALWAYS"
+                           style="-fx-background-color: #f1f5f9; -fx-background-radius: 10; -fx-padding: 10 15; -fx-border-color: transparent;" />
+                <Button text="发送" onAction="#onSendComment"
+                        style="-fx-background-color: linear-gradient(to right, #6366f1, #a855f7);
+                               -fx-text-fill: white; -fx-background-radius: 10; -fx-padding: 9 25;
+                               -fx-font-weight: bold; -fx-cursor: hand;">
+                    <effect>
+                        <DropShadow color="#6366f133" radius="10" offsetY="3" />
+                    </effect>
+                </Button>
             </HBox>
         </VBox>
     </content>
 </ScrollPane>
-

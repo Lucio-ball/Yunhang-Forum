@@ -8,26 +8,55 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.effect.DropShadow?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.yunhang.forum.controller.auth.PostListController">
-    <top>
-        <HBox alignment="CENTER_RIGHT" style="-fx-padding: 10;">
-            <Label text="排序:"/>
-            <ComboBox fx:id="sortComboBox" prefWidth="110.0"/>
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.yunhang.forum.controller.auth.PostListController"
+            style="-fx-background-color: #f8fafc;"> <top>
+    <HBox alignment="CENTER_RIGHT" spacing="12.0"
+          style="-fx-padding: 15 25 15 15; -fx-background-color: white; -fx-border-color: #e2e8f0; -fx-border-width: 0 0 1 0;">
 
-            <Button fx:id="refreshButton" mnemonicParsing="false" text="刷新" onAction="#refreshPosts"
-                    styleClass="button">
-                <HBox.margin>
-                    <Insets right="10.0"/>
-                </HBox.margin>
-            </Button>
-        </HBox>
-    </top>
+        <Label text="排序方式"
+               style="-fx-text-fill: #334155; -fx-font-size: 13px; -fx-font-weight: bold;"/>
+
+        <ComboBox fx:id="sortComboBox" prefWidth="130.0"
+                  style="-fx-background-color: #f1f5f9;
+                             -fx-background-radius: 10;
+                             -fx-border-color: #e2e8f0;
+                             -fx-border-radius: 10;
+                             -fx-padding: 3 5;
+                             -fx-font-size: 13px;
+                             -fx-font-weight: bold;
+                             -fx-text-fill: #1e293b;
+                             -fx-cursor: hand;">
+        </ComboBox>
+
+        <Button fx:id="refreshButton" mnemonicParsing="false" text="刷新" onAction="#refreshPosts"
+                style="-fx-background-color: linear-gradient(to right, #6366f1, #a855f7);
+                           -fx-text-fill: white;
+                           -fx-background-radius: 10;
+                           -fx-padding: 7 20;
+                           -fx-font-weight: bold;
+                           -fx-cursor: hand;">
+            <effect>
+                <DropShadow color="#6366f144" radius="10" offsetY="3" />
+            </effect>
+        </Button>
+    </HBox>
+</top>
 
     <center>
-        <VBox>
-            <ListView fx:id="postListView" VBox.vgrow="ALWAYS"/>
+        <VBox style="-fx-background-color: #f8fafc;">
+            <padding>
+                <Insets top="10" right="20" bottom="10" left="20"/>
+            </padding>
+            <ListView fx:id="postListView" VBox.vgrow="ALWAYS"
+                      style="-fx-background-color: transparent;
+                             -fx-background-insets: 0;
+                             -fx-padding: 0;
+                             -fx-border-color: transparent;"/>
         </VBox>
     </center>
+
 </BorderPane>

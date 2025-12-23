@@ -6,44 +6,49 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.effect.DropShadow?>
 
-<!--
-  Center-view for MainLayout.
-  IMPORTANT: NO sidebar here. Sidebar belongs to MainLayout.fxml only.
--->
 <ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.yunhang.forum.controller.main.MyPostsController"
-            fitToWidth="true">
-  <content>
-    <VBox spacing="18" fillWidth="true">
-      <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
-      </padding>
-
-      <!-- Section 1: User card -->
-      <VBox spacing="8" style="-fx-background-color: #ffffff; -fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #e0e0e0;">
+            fitToWidth="true"
+            style="-fx-background-color: #f8fafc; -fx-background-insets: 0;"> <content>
+    <VBox spacing="25" fillWidth="true" style="-fx-background-color: transparent;">
         <padding>
-          <Insets top="16" right="16" bottom="16" left="16"/>
+            <Insets top="30" right="30" bottom="30" left="30"/>
         </padding>
-        <Label fx:id="welcomeLabel" text="欢迎，加载中..." style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
-        <Label fx:id="studentIdLabel" text="学号: --" style="-fx-text-fill: #666;"/>
-      </VBox>
 
-      <!-- Section 2: My Posts -->
-      <VBox spacing="10">
-        <Label text="我的帖子" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
-        <ListView fx:id="postListView" prefHeight="260" VBox.vgrow="ALWAYS"/>
-      </VBox>
+        <VBox spacing="10" style="-fx-background-color: #ffffff; -fx-background-radius: 20; -fx-border-color: #e2e8f0; -fx-border-radius: 20;">
+            <padding>
+                <Insets top="25" right="25" bottom="25" left="25"/>
+            </padding>
+            <effect>
+                <DropShadow color="#00000008" radius="15" offsetY="5" />
+            </effect>
+            <Label fx:id="welcomeLabel" text="欢迎，加载中..."
+                   style="-fx-font-size: 24px; -fx-font-weight: 900; -fx-text-fill: #1e293b;"/>
+            <Label fx:id="studentIdLabel" text="学号: --"
+                   style="-fx-text-fill: #94a3b8; -fx-font-size: 14px; -fx-font-weight: bold;"/>
+        </VBox>
 
-      <!-- Section 3: Notifications -->
-      <VBox spacing="10">
-        <HBox spacing="10">
-          <Label text="消息通知 (Notifications)" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
-        </HBox>
-        <ListView fx:id="notificationListView" prefHeight="220" VBox.vgrow="ALWAYS"/>
-      </VBox>
+        <VBox spacing="15" VBox.vgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <VBox prefWidth="4" prefHeight="18" style="-fx-background-color: #6366f1; -fx-background-radius: 2;" />
+                <Label text="我的帖子" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+            </HBox>
+            <ListView fx:id="postListView" prefHeight="300" VBox.vgrow="ALWAYS"
+                      style="-fx-background-color: #ffffff; -fx-background-radius: 15; -fx-border-color: #e2e8f0; -fx-border-radius: 15; -fx-padding: 5;"/>
+        </VBox>
+
+        <VBox spacing="15" VBox.vgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <VBox prefWidth="4" prefHeight="18" style="-fx-background-color: #a855f7; -fx-background-radius: 2;" />
+                <Label text="消息通知" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+                <Label text="Notifications" style="-fx-font-size: 12px; -fx-text-fill: #94a3b8; -fx-font-weight: normal;"/>
+            </HBox>
+            <ListView fx:id="notificationListView" prefHeight="250" VBox.vgrow="ALWAYS"
+                      style="-fx-background-color: #ffffff; -fx-background-radius: 15; -fx-border-color: #e2e8f0; -fx-border-radius: 15; -fx-padding: 5;"/>
+        </VBox>
 
     </VBox>
-  </content>
+</content>
 </ScrollPane>
-
