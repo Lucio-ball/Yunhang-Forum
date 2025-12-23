@@ -152,15 +152,19 @@ public class JsonDataLoader implements DataLoader {
       com.yunhang.forum.util.LogUtil.warn("Persistence disabled: loadUsers returns empty list");
       return new ArrayList<>();
     }
+
     try (Reader reader = new FileReader(USER_FILE_PATH)) {
-      // 使用 TypeToken 解决 List<User> 泛型问题
       Type userListType = new TypeToken<ArrayList<User>>() {
       }.getType();
       List<User> users = gson.fromJson(reader, userListType);
-
       return users != null ? users : new ArrayList<>();
-    } catch (IOException e) {
-      com.yunhang.forum.util.LogUtil.error("loadUsers failed", e);
+    } catch (FileNotFoundException e) {
+      // Should not happen due to initFile, but keep it safe
+      com.yunhang.forum.util.LogUtil.warn("users.json not found; returning empty list");
+      return new ArrayList<>();
+    } catch (Exception e) {
+      // CRITICAL: surface parse errors - returning empty would look like data loss
+      com.yunhang.forum.util.LogUtil.error("loadUsers failed (parse or IO error)", e);
       return new ArrayList<>();
     }
   }
@@ -171,10 +175,14 @@ public class JsonDataLoader implements DataLoader {
       com.yunhang.forum.util.LogUtil.warn("Persistence disabled: saveUsers ignored");
       return false;
     }
+
+    List<User> safeUsers = (users != null) ? users : new ArrayList<>();
+
     try (Writer writer = new FileWriter(USER_FILE_PATH)) {
-      gson.toJson(users, writer);
+      gson.toJson(safeUsers, writer);
+      writer.flush();
       return true;
-    } catch (IOException e) {
+    } catch (Exception e) {
       com.yunhang.forum.util.LogUtil.error("saveUsers failed", e);
       return false;
     }

@@ -27,7 +27,8 @@ public class InteractionModuleTest {
         DummyStudent author = new DummyStudent("20250001", "作者A", "pass");
         DummyStudent commenter = new DummyStudent("20250002", "评论者B", "pass");
 
-        Post post = new Post("标题", "正文", author.getUserID(), PostCategory.LEARNING);
+        // IMPORTANT: Post.authorId 在业务中以 studentID 作为统一标识
+        Post post = new Post("标题", "正文", author.getStudentID(), PostCategory.LEARNING);
         post.safeTransitionTo(PostStatus.PUBLISHED);
 
         // 断言：初始无通知

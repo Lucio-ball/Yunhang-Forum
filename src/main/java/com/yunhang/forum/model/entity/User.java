@@ -32,7 +32,9 @@ public abstract class User {
         this.registrationTime = LocalDateTime.now();
         this.avatarPath = "avatar.png";
         securelyStorePassword(Password);
-        GlobalVariables.userMap.put(userID, this);
+
+        // IMPORTANT: keep GlobalVariables.userMap keyed by studentID (consistent across services/controllers)
+        GlobalVariables.userMap.put(studentID, this);
     }
 
     public abstract boolean login(String password);

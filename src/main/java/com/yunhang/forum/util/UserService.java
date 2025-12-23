@@ -20,18 +20,45 @@ public class UserService {
         this(AppContext.getDataLoader(), new EmailService());
     }
 
-    UserService(DataLoader dataLoader, EmailService emailService) {
+    public UserService(DataLoader dataLoader, EmailService emailService) {
         this.dataLoader = dataLoader;
         this.emailService = (emailService != null) ? emailService : new EmailService();
+
+        // CRITICAL: load persisted users into memory on service initialization
+        loadUsersIntoMemory();
+    }
+
+    private void loadUsersIntoMemory() {
+        if (dataLoader == null) {
+            LogUtil.warn("UserService init: DataLoader is null; users will not be loaded");
+            return;
+        }
+
+        try {
+            List<User> users = dataLoader.loadUsers();
+            if (users == null || users.isEmpty()) {
+                return;
+            }
+
+            // De-duplicate by studentID and populate GlobalVariables.userMap
+            for (User u : users) {
+                if (u == null) continue;
+                String sid = u.getStudentID();
+                if (sid == null || sid.isBlank()) continue;
+                GlobalVariables.userMap.put(sid, u);
+            }
+        } catch (Exception e) {
+            LogUtil.error("UserService init: loadUsers failed", e);
+        }
     }
 
 
     private User findUserById(String id) {
-        for (User user : GlobalVariables.userMap.values()) {
-            if (user.getStudentID().equals(id))
-                return user;
+        if (id == null) {
+            return null;
         }
-        return null;
+        // GlobalVariables.userMap is keyed by studentId
+        return GlobalVariables.userMap.get(id);
     }
 
 
@@ -64,12 +91,22 @@ public class UserService {
         }
 
         Student newUser = new Student(studentId, nickname, password);
+
+        // Ensure consistent key and avoid duplicate insertion
         GlobalVariables.userMap.put(studentId, newUser);
         LogUtil.info("新用户 [" + newUser.getNickname() + "] 注册成功。");
 
         // Persist via DAO (best-effort)
         if (dataLoader != null) {
-            boolean ok = dataLoader.saveUsers(new ArrayList<>(GlobalVariables.userMap.values()));
+            // Persist de-duplicated list (by studentID)
+            Map<String, User> byStudentId = new LinkedHashMap<>();
+            for (User u : GlobalVariables.userMap.values()) {
+                if (u != null && u.getStudentID() != null && !u.getStudentID().isBlank()) {
+                    byStudentId.put(u.getStudentID(), u);
+                }
+            }
+
+            boolean ok = dataLoader.saveUsers(new ArrayList<>(byStudentId.values()));
             if (!ok) {
                 LogUtil.warn("用户数据持久化失败（忽略）：saveUsers 返回 false");
             }
@@ -102,9 +139,11 @@ public class UserService {
     }
 
     public List<Post> getUserPosts(String studentId) {
-        List<Post> userPosts = new ArrayList<>();
         User user = GlobalVariables.userMap.get(studentId);
-        userPosts = user.getPublishedPosts();
+        if (user == null) {
+            return new ArrayList<>();
+        }
+        List<Post> userPosts = user.getPublishedPosts();
         userPosts.sort((p1, p2) -> p2.getPublishTime().compareTo(p1.getPublishTime()));
         return userPosts;
     }

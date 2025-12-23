@@ -234,6 +234,10 @@ public class PostService {
       return new LikeResult(false, 0);
     }
     boolean liked = post.toggleLike(userId);
+
+    // NEW: persist likes change (best-effort)
+    persistBestEffort();
+
     return new LikeResult(liked, post.getLikeCount());
   }
 
@@ -250,19 +254,28 @@ public class PostService {
     int beforeSize = post.getComments().size();
     User currentUser = UserSession.getInstance().getCurrentUser();
 
+    Comment saved;
     if (currentUser != null) {
       // 使用 Post 的业务方法，确保触发通知等副作用
       post.addComment(currentUser, comment.getContent());
       List<Comment> after = post.getComments();
       if (after.size() > beforeSize) {
-        return after.get(after.size() - 1);
+        saved = after.get(after.size() - 1);
+      } else {
+        saved = null;
       }
-      return null;
+    } else {
+      // 无登录态：仅追加数据
+      post.addComment(comment);
+      saved = comment;
     }
 
-    // 无登录态：仅追加数据
-    post.addComment(comment);
-    return comment;
+    // NEW: persist comment change (best-effort)
+    if (saved != null) {
+      persistBestEffort();
+    }
+
+    return saved;
   }
 
   /**

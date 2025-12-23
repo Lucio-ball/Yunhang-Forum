@@ -659,8 +659,8 @@ public class Post extends ObservableEntity {
     this.comments.add(comment);
     incrementCommentCount();
 
-    // 确保作者在观察者列表中
-    User author = GlobalVariables.userMap.get(this.authorId);
+    // 确保作者在观察者列表中（兼容：authorId 可能是 studentId 或旧的 userID）
+    User author = resolveAuthor();
     if (author != null) {
       this.addObserver(author);
     }
@@ -688,9 +688,34 @@ public class Post extends ObservableEntity {
     addComment(commenter, comment.getContent());
   }
 
+  /**
+   * 解析作者对象。
+   * 规范：authorId = studentID。
+   * 兼容：若旧数据把 authorId 写成 userID(UUID)，这里做一次回退查找。
+   */
+  private User resolveAuthor() {
+    if (this.authorId == null) {
+      return null;
+    }
+
+    User byStudentId = GlobalVariables.userMap.get(this.authorId);
+    if (byStudentId != null) {
+      return byStudentId;
+    }
+
+    // Backward compatibility: authorId stored as userID (UUID)
+    for (User u : GlobalVariables.userMap.values()) {
+      if (u != null && this.authorId.equals(u.getUserID())) {
+        return u;
+      }
+    }
+
+    return null;
+  }
+
   // 与类图的作者关联：提供便捷访问
   public User getAuthor() {
-    return this.authorId != null ? GlobalVariables.userMap.get(this.authorId) : null;
+    return resolveAuthor();
   }
 
   // 兼容：提供一个与类图语义一致的无返回版本（不改变现有行为）

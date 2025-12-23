@@ -8,6 +8,7 @@ import com.yunhang.forum.service.strategy.PostService;
 import com.yunhang.forum.util.AppContext;
 import com.yunhang.forum.util.ResourcePaths;
 import com.yunhang.forum.util.ViewManager;
+import com.yunhang.forum.util.UserService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,6 +25,9 @@ public class MainApp extends Application {
         // Composition root: wire DAO implementation once
         DataLoader dataLoader = new FileDataLoader();
         AppContext.setDataLoader(dataLoader);
+
+        // CRITICAL: warm up user cache from persisted json
+        new UserService();
 
         // 1. 初始化 ViewManager 并设置主舞台
         ViewManager.setPrimaryStage(stage);
