@@ -189,16 +189,14 @@ public class MainLayoutController implements Initializable {
   @FXML
   public void onHomeClicked() {
     LogUtil.info("导航: 点击首页 (Home)");
-    // Home: time sort
-    PostService.getInstance().setSortStrategy(new com.yunhang.forum.service.strategy.impl.TimeSortStrategy());
-    ViewManager.loadContent(ResourcePaths.FXML_AUTH_POST_LIST);
+    ViewManager.loadContent("main/Home.fxml");
   }
 
   @FXML
   public void onSquareClicked() {
     LogUtil.info("导航: 点击广场 (Square)");
-    // Square: hot sort
-    PostService.getInstance().setSortStrategy(new com.yunhang.forum.service.strategy.impl.HotSortStrategy());
+    // Square: default time sort
+    PostService.getInstance().setSortStrategy(new com.yunhang.forum.service.strategy.impl.TimeSortStrategy());
     ViewManager.loadContent(ResourcePaths.FXML_AUTH_POST_LIST);
   }
 
@@ -212,12 +210,6 @@ public class MainLayoutController implements Initializable {
     if (center != null && center.getUserData() instanceof MyPostsController controller) {
       controller.refreshData();
     }
-  }
-
-  @FXML
-  public void onSettingsClicked() {
-    LogUtil.info("导航: 点击设置 (Settings)");
-    ViewManager.loadContent(ResourcePaths.FXML_USER_SETTINGS);
   }
 
   @FXML

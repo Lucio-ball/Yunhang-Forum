@@ -56,3 +56,6 @@ build/
 # OS
 .DS_Store
 Thumbs.db
+
+# Local app data (ignore in VCS)
+data/

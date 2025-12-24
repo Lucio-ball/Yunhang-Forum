@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" spacing="20.0"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.yunhang.forum.controller.main.HomeController">
+
+    <padding>
+        <Insets top="40.0" right="40.0" bottom="40.0" left="40.0"/>
+    </padding>
+
+    <!-- Hero Section -->
+    <VBox alignment="CENTER" spacing="10.0">
+        <Label text="Yunhang Forum" style="-fx-text-fill: #005be4; -fx-font-weight: bold;">
+            <font>
+                <Font name="System" size="32.0"/>
+            </font>
+        </Label>
+        <Label text="基于 Java 25 的现代化校园交流平台" style="-fx-text-fill: #6b7280;">
+            <font>
+                <Font name="System" size="16.0"/>
+            </font>
+        </Label>
+    </VBox>
+
+    <!-- Tech Stack Grid -->
+    <GridPane hgap="18.0" vgap="18.0" alignment="CENTER">
+        <VBox GridPane.columnIndex="0" GridPane.rowIndex="0" spacing="10.0"
+              style="-fx-background-color: #ffffff; -fx-background-radius: 16; -fx-border-radius: 16; -fx-border-color: #e2e8f0; -fx-padding: 18;">
+            <effect>
+                <DropShadow color="#0000000D" radius="18" offsetY="6" />
+            </effect>
+            <Label text="Java 25" style="-fx-text-fill: #0f172a; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+            <Label text="虚拟线程, 高并发 IO." wrapText="true" style="-fx-text-fill: #475569; -fx-font-size: 13px;"/>
+        </VBox>
+
+        <VBox GridPane.columnIndex="1" GridPane.rowIndex="0" spacing="10.0"
+              style="-fx-background-color: #ffffff; -fx-background-radius: 16; -fx-border-radius: 16; -fx-border-color: #e2e8f0; -fx-padding: 18;">
+            <effect>
+                <DropShadow color="#0000000D" radius="18" offsetY="6" />
+            </effect>
+            <Label text="Architecture" style="-fx-text-fill: #0f172a; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+            <Label text="MVC 分层, DAO 模式." wrapText="true" style="-fx-text-fill: #475569; -fx-font-size: 13px;"/>
+        </VBox>
+
+        <VBox GridPane.columnIndex="2" GridPane.rowIndex="0" spacing="10.0"
+              style="-fx-background-color: #ffffff; -fx-background-radius: 16; -fx-border-radius: 16; -fx-border-color: #e2e8f0; -fx-padding: 18;">
+            <effect>
+                <DropShadow color="#0000000D" radius="18" offsetY="6" />
+            </effect>
+            <Label text="Design Patterns" style="-fx-text-fill: #0f172a; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+            <Label text="策略模式, 观察者模式." wrapText="true" style="-fx-text-fill: #475569; -fx-font-size: 13px;"/>
+        </VBox>
+    </GridPane>
+
+    <!-- Footer -->
+    <Label text="Designed by Group [你的组号]" style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;"/>
+
+</VBox>

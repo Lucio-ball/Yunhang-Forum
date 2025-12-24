@@ -205,9 +205,9 @@ public final class ViewManager {
             }
             primaryStage.centerOnScreen();
 
-            // Default landing: once main layout is ready, show the feed in center.
+            // Default landing: once main layout is ready, show the Home welcome page.
             if (ResourcePaths.FXML_MAIN_LAYOUT.equals(fxmlPath)) {
-                TaskRunner.runOnUI(() -> loadContent(ResourcePaths.FXML_AUTH_POST_LIST));
+                TaskRunner.runOnUI(() -> loadContent("main/Home.fxml"));
             }
 
         } catch (IOException e) {

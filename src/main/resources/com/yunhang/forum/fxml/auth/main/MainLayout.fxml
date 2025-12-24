@@ -36,7 +36,6 @@
             <Button text="  🏠  首页 (Home)" maxWidth="Infinity" styleClass="nav-button" onAction="#onHomeClicked"/>
             <Button text="  🌏  广场 (Square)" maxWidth="Infinity" styleClass="nav-button" onAction="#onSquareClicked"/>
             <Button text="  📝  我的帖子 (My Posts)" maxWidth="Infinity" styleClass="nav-button" onAction="#onMyPostsClicked"/>
-            <Button text="  ⚙️  设置 (Settings)" maxWidth="Infinity" styleClass="nav-button" onAction="#onSettingsClicked"/>
         </VBox>
 
         <VBox spacing="10">
